@@ -22,3 +22,6 @@
 - SET `humanScore`, `computerScore` to zero
 - INVOKE another function to run `playRound` for 5 times.
 - SHOW scores at the end of each round
+
+# step 7
+- CREATE three buttons for human players to choose from
