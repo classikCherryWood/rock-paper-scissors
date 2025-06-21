@@ -7,8 +7,157 @@
 </head>
 <body>
 
+    <div id="div1">
+        <h1>Please pick a choice: </h1>
+        <ul id="player-selection">
+            <li><button id="paper">PAPER</button></li>
+            <li><button id="scissors">SCISSORS</button></li>
+            <li><button id="rock">ROCK</button></li>
+        </ul>
+    </div>
+
+
     <script>
-        console.log("Hello World")
+        let humanScore = 0, computerScore = 0; 
+
+        let getComputerChoice = () => {
+            let i = Math.floor(Math.random() * 3); 
+
+            switch (i) {
+                case 0: 
+                    //console.log("Computer chose ROCK!"); 
+                    return "Rock"; 
+
+                case 1: 
+                    //console.log("Computer chose PAPER!"); 
+                    return "Paper"; 
+
+
+                case 2: 
+                    //console.log("Computer chose SCISSORS!"); 
+                    return "Scissors"; 
+
+            }
+        }
+
+        function playRound(humanChoice, computerChoice) {
+
+            let newDiv = document.createElement('div');
+            newDiv.className = "result-div"
+            let curDiv = document.getElementById('div1');
+            
+
+            if (humanChoice === computerChoice) {
+                let result = document.createTextNode("Tie! No one gets a point!");
+                newDiv.appendChild(result);
+                curDiv.appendChild(newDiv);
+                        
+            }
+
+            switch (humanChoice) {
+                case "rock": 
+                    if (computerChoice === "paper"){
+                        let result = document.createTextNode("You lost! Paper beats Rock! ");
+                        newDiv.appendChild(result);
+                        curDiv.appendChild(newDiv)
+                        computerScore++; 
+                    } else if (computerChoice === "scissors"){
+                        let result = document.createTextNode("You won! Rock beats scissors! ");
+                        newDiv.appendChild(result);
+                        curDiv.appendChild(newDiv)
+                        humanScore++; 
+                    }
+                    break; 
+                
+                case "paper": 
+                    if (computerChoice === "scissors"){
+                        
+                        let result = document.createTextNode("You lost! Scissors beat paper! ");
+                        newDiv.appendChild(result);
+                        curDiv.appendChild(newDiv)
+                        computerScore++; 
+
+                    } else if (computerChoice === "rock"){
+                        
+                        let result = document.createTextNode("You won! Paper beats rock! ");
+                        newDiv.appendChild(result);
+                        curDiv.appendChild(newDiv)
+                        humanScore++; 
+                    }
+                    break;
+
+                case "scissors": 
+                    if (computerChoice === "rock"){
+                        
+                        let result = document.createTextNode("You lost! Rock beats scissors! ");
+                        newDiv.appendChild(result);
+                        curDiv.appendChild(newDiv)
+                        computerScore++; 
+
+                    } else if (computerChoice === "paper"){
+                        
+                        let result = document.createTextNode("You won! Scissors beat paper! ");
+                        newDiv.appendChild(result);
+                        curDiv.appendChild(newDiv)
+                        humanScore++; 
+                    }
+                    break;
+
+
+            }
+
+            let scoreDiv = document.createElement('div');
+            scoreDiv.className = "score-div";
+            scoreDiv.textContent = `\nCurrent Scores:\nYou:${humanScore}\nComputer:${computerScore}`;
+            curDiv.appendChild(scoreDiv);
+
+            scoreCheck(humanScore, computerScore); 
+  
+        }
+
+        const scoreCheck = () =>{
+            
+            if (humanScore === 5){
+                    alert("Game over! You have won!");
+                    document.querySelectorAll('.result-div').forEach((div) => div.remove());
+                    document.querySelectorAll('div.score-div').forEach((div) => div.remove());
+                    humanScore = 0, computerScore = 0; 
+            } else if (computerScore === 5){
+                    alert("Game over! Computer has won!")
+                    document.querySelectorAll('.result-div').forEach((div) => div.remove());
+                    document.querySelectorAll('div.score-div').forEach((div) => div.remove());
+                    humanScore = 0, computerScore = 0; 
+                }
+
+                    
+        }
+
+
+
+        let selection = document.querySelector("#player-selection");
+
+        selection.addEventListener('click', function(event) {
+            let target = event.target
+
+            switch (target.id){
+                case 'paper':
+                    playRound(target.id, getComputerChoice().toLowerCase());
+                    break;
+                case 'rock':
+                    playRound(target.id, getComputerChoice().toLowerCase());
+                    break;
+                case 'scissors':
+                    playRound(target.id, getComputerChoice().toLowerCase());
+                    break;
+                    }
+
+            
+                
+        })
+
+
+
+
     </script>
     
 </body>
